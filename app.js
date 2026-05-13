@@ -15,7 +15,7 @@
       tagline: "IMMERSIVE SURGICAL TRAINING",
       heroTitle: "Forging the missing link<br>in surgery education",
       heroLead:
-        "In medical education, learners are exposed to live patients to acquire the necessary skills. There is also the necessity to ensure the patient's safety and well-being. These two needs can sometimes pose a dilemma in medical education. At Non Nocere, we offer an immersive learning experience that helps learners to improve their ability to perform surgery efficiently and safely.",
+        "Surgical training needs real patients — but never at their expense. Non Nocere closes that gap with immersive simulation: safe practice, real competence.",
       menuPresentation: "Presentation",
       menuPresentationHint: "Curated visual narrative",
       menuVideo: "Video",
@@ -52,7 +52,7 @@
       tagline: "SÜRÜKLEYİCİ CERRAHİ EĞİTİM",
       heroTitle: "Cerrah eğitimindeki<br>eksik halkayı tamamlıyoruz",
       heroLead:
-        "Tıp eğitiminde öğrenenlerin gerekli becerileri kazanmak için bazen hastaların üzerinde çalışmaları gerekir. Diğer taraftan hastanın güvenliğini sağlama ve refahını gözetme zorunluluğu da vardır. Bu iki gereklilik bazen tıp eğitiminde bir ikilem yaratabilmektedir. Non Nocere olarak, öğrenenlerin ameliyatları verimli ve güvenli bir şekilde tamamlama yetilerini geliştirmelerine yardımcı olan kapsamlı bir öğrenme deneyimi sunuyoruz.",
+        "Cerrahi eğitim gerçek hastayı gerektirir — ama hastanın pahasına değil. Non Nocere bu boşluğu sürükleyici simülasyonla kapatır: güvenli pratik, gerçek yetkinlik.",
       menuPresentation: "Sunum",
       menuPresentationHint: "Görsel anlatı",
       menuVideo: "Video",
@@ -89,7 +89,7 @@
       tagline: "IMMERSIVES CHIRURGIE-TRAINING",
       heroTitle: "Wir schließen die Lücke<br>in der chirurgischen Ausbildung",
       heroLead:
-        "In der medizinischen Ausbildung müssen Lernende an realen Patienten Erfahrungen sammeln, um die nötigen Fähigkeiten zu erwerben. Gleichzeitig muss die Sicherheit und das Wohlbefinden der Patientinnen und Patienten gewährleistet bleiben. Diese beiden Anforderungen können in der medizinischen Ausbildung zu einem Dilemma führen. Bei Non Nocere bieten wir eine immersive Lernerfahrung, die Lernenden dabei hilft, Operationen effizient und sicher durchzuführen.",
+        "Chirurgische Ausbildung braucht echte Patienten — nie aber auf deren Kosten. Non Nocere schließt diese Lücke mit immersiver Simulation: sicheres Üben, echte Kompetenz.",
       menuPresentation: "Präsentation",
       menuPresentationHint: "Kuratierte visuelle Erzählung",
       menuVideo: "Video",
