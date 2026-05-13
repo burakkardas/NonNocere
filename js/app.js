@@ -1625,12 +1625,16 @@
     overlay.className = "viewer";
     overlay.hidden = true;
     overlay.innerHTML = `
-      <button type="button" class="viewer__close" aria-label="Close">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 6 6 18M6 6l12 12"/>
-        </svg>
-      </button>
-      <div class="viewer__stage" id="viewer-stage"></div>
+      <div class="viewer__stage">
+        <div class="viewer__frame">
+          <button type="button" class="viewer__close" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 6 6 18M6 6l12 12"/>
+            </svg>
+          </button>
+          <div class="viewer__content" id="viewer-stage"></div>
+        </div>
+      </div>
       <p class="viewer__caption" id="viewer-caption"></p>
     `;
     document.body.appendChild(overlay);
