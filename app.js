@@ -1130,6 +1130,34 @@
     return "other";
   }
 
+  const VIDEO_MIME = {
+    mp4: "video/mp4",
+    m4v: "video/mp4",
+    webm: "video/webm",
+    ogg: "video/ogg",
+    mov: "video/quicktime",
+  };
+
+  // Build <source> elements for a video. We always emit a WebM sibling first
+  // (VP9/Opus works in OSS Chromium webviews — e.g. Unity Vuplex on Windows —
+  // which lack H.264/AAC), then the original file as a fallback for browsers
+  // that don't have a WebM. If the WebM doesn't exist on disk the browser
+  // just falls through to the next <source>.
+  function setVideoSources(vid, src) {
+    const ext = fileExt(src);
+    const dot = src.lastIndexOf(".");
+    const base = dot >= 0 ? src.slice(0, dot) : src;
+    const sources = [];
+    if (ext !== "webm") sources.push({ src: `${base}.webm`, type: "video/webm" });
+    sources.push({ src, type: VIDEO_MIME[ext] || "" });
+    sources.forEach(({ src: s, type }) => {
+      const el = document.createElement("source");
+      el.src = s;
+      if (type) el.type = type;
+      vid.appendChild(el);
+    });
+  }
+
   function resolveTitle(item) {
     if (!item) return "";
     const raw = item.title;
@@ -1218,10 +1246,10 @@
         } else if (kind === "video") {
           // Lightweight preview: video with no controls, paused.
           const vid = document.createElement("video");
-          vid.src = src;
           vid.muted = true;
           vid.playsInline = true;
           vid.preload = "metadata";
+          setVideoSources(vid, src);
           thumb.appendChild(vid);
           thumb.appendChild(iconPlay());
         } else if (kind === "pdf") {
@@ -1406,10 +1434,10 @@
         slide.appendChild(img);
       } else if (kind === "video") {
         const vid = document.createElement("video");
-        vid.src = src;
         vid.controls = true;
         vid.playsInline = true;
         vid.preload = "metadata";
+        setVideoSources(vid, src);
         slide.appendChild(vid);
       } else if (kind === "pdf") {
         const iframe = document.createElement("iframe");
@@ -1620,11 +1648,11 @@
 
     if (kind === "video") {
       const v = document.createElement("video");
-      v.src = src;
       v.controls = true;
       v.autoplay = true;
       v.playsInline = true;
       v.className = "viewer__video";
+      setVideoSources(v, src);
       stage.appendChild(v);
     } else if (kind === "image") {
       const img = document.createElement("img");
