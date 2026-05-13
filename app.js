@@ -370,7 +370,9 @@
    * -------------------------------------------------- */
   function setupCanvas(canvas) {
     const ctx = canvas.getContext("2d");
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // Cap at 1.5×. Soft glows / thin lines look identical to 2× to the eye
+    // but halve fragment cost on retina screens.
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
 
     function resize() {
       const rect = canvas.getBoundingClientRect();
@@ -695,15 +697,17 @@
     const canvas = document.getElementById("orbital-3d");
     if (!canvas) return;
 
+    // Vendored locally (vendor/three/) so the page works inside embedded
+    // Chromium webviews that block cross-origin ES module imports.
     let THREE, GLTFLoader, RoomEnvironment;
     try {
-      THREE = await import("https://esm.sh/three@0.160.0");
+      THREE = await import("./vendor/three/three.module.min.js");
       const gltfMod = await import(
-        "https://esm.sh/three@0.160.0/examples/jsm/loaders/GLTFLoader.js"
+        "./vendor/three/addons/loaders/GLTFLoader.js"
       );
       GLTFLoader = gltfMod.GLTFLoader;
       const envMod = await import(
-        "https://esm.sh/three@0.160.0/examples/jsm/environments/RoomEnvironment.js"
+        "./vendor/three/addons/environments/RoomEnvironment.js"
       );
       RoomEnvironment = envMod.RoomEnvironment;
     } catch (e) {
@@ -718,7 +722,7 @@
       alpha: true,
       antialias: true,
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     renderer.setSize(rect.width, rect.height, false);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -762,8 +766,10 @@
     ).matches;
 
     const loader = new GLTFLoader();
+    // ?v= busts the 132-byte LFS-pointer response that some embedded
+    // webviews may still have cached from before the LFS migration.
     loader.load(
-      "assets/models/Model.glb",
+      "assets/models/Model.glb?v=2",
       (gltf) => {
         model = gltf.scene;
 

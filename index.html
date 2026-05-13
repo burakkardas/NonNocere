@@ -13,6 +13,12 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+
+    <!-- Warm the cache for the hero 3D scene so the model pops in fast. -->
+    <link rel="modulepreload" href="vendor/three/three.module.min.js" />
+    <link rel="modulepreload" href="vendor/three/addons/loaders/GLTFLoader.js" />
+    <link rel="modulepreload" href="vendor/three/addons/environments/RoomEnvironment.js" />
+    <link rel="preload" as="fetch" type="model/gltf-binary" crossorigin="anonymous" href="assets/models/Model.glb?v=2" />
   </head>
   <body>
     <div class="ambient">
