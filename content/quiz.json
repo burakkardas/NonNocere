@@ -1,0 +1,169 @@
+{
+  "questions": [
+    {
+      "answer": 0,
+      "en": {
+        "q": "Which platform is the Nonnocere experience designed for?",
+        "options": [
+          "Meta Quest",
+          "PlayStation VR",
+          "HTC Vive",
+          "Apple Vision Pro",
+          "Valve Index"
+        ]
+      },
+      "tr": {
+        "q": "Nonnocere deneyimi hangi platform için tasarlandı?",
+        "options": [
+          "Meta Quest",
+          "PlayStation VR",
+          "HTC Vive",
+          "Apple Vision Pro",
+          "Valve Index"
+        ]
+      },
+      "de": {
+        "q": "Für welche Plattform wurde Nonnocere entwickelt?",
+        "options": [
+          "Meta Quest",
+          "PlayStation VR",
+          "HTC Vive",
+          "Apple Vision Pro",
+          "Valve Index"
+        ]
+      }
+    },
+    {
+      "answer": 1,
+      "en": {
+        "q": "What is the central theme of Nonnocere?",
+        "options": [
+          "Speed and competition",
+          "Presence, perception and play",
+          "Combat simulation",
+          "Open-world exploration",
+          "Puzzle solving"
+        ]
+      },
+      "tr": {
+        "q": "Nonnocere'in merkezindeki tema nedir?",
+        "options": [
+          "Hız ve rekabet",
+          "Varoluş, algı ve oyun",
+          "Çatışma simülasyonu",
+          "Açık dünya keşfi",
+          "Bulmaca çözme"
+        ]
+      },
+      "de": {
+        "q": "Was ist das zentrale Thema von Nonnocere?",
+        "options": [
+          "Geschwindigkeit und Wettkampf",
+          "Präsenz, Wahrnehmung und Spiel",
+          "Kampfsimulation",
+          "Open-World-Erkundung",
+          "Rätsel lösen"
+        ]
+      }
+    },
+    {
+      "answer": 2,
+      "en": {
+        "q": "Which best describes the visual language of the experience?",
+        "options": [
+          "Photorealistic landscapes",
+          "Cartoon and cel-shaded",
+          "Spatial, minimal, luminous",
+          "Pixel-art retro",
+          "Hand-drawn 2D animation"
+        ]
+      },
+      "tr": {
+        "q": "Deneyimin görsel dilini en iyi hangisi tanımlar?",
+        "options": [
+          "Fotogerçekçi manzaralar",
+          "Çizgi film / cel-shaded",
+          "Uzamsal, minimal, ışıltılı",
+          "Piksel-art retro",
+          "El çizimi 2D animasyon"
+        ]
+      },
+      "de": {
+        "q": "Welche Beschreibung passt am besten zur Bildsprache?",
+        "options": [
+          "Fotorealistische Landschaften",
+          "Cartoon / Cel-Shading",
+          "Räumlich, minimal, leuchtend",
+          "Pixelart-Retro",
+          "Handgezeichnete 2D-Animation"
+        ]
+      }
+    },
+    {
+      "answer": 3,
+      "en": {
+        "q": "Which Latin maxim does the name “Nonnocere” evoke?",
+        "options": [
+          "Cogito ergo sum",
+          "Carpe diem",
+          "Memento mori",
+          "Primum non nocere",
+          "Veni vidi vici"
+        ]
+      },
+      "tr": {
+        "q": "“Nonnocere” adı hangi Latince ilkeyi çağrıştırır?",
+        "options": [
+          "Cogito ergo sum",
+          "Carpe diem",
+          "Memento mori",
+          "Primum non nocere",
+          "Veni vidi vici"
+        ]
+      },
+      "de": {
+        "q": "An welchen lateinischen Leitsatz erinnert der Name „Nonnocere“?",
+        "options": [
+          "Cogito ergo sum",
+          "Carpe diem",
+          "Memento mori",
+          "Primum non nocere",
+          "Veni vidi vici"
+        ]
+      }
+    },
+    {
+      "answer": 4,
+      "en": {
+        "q": "What is the intended mode of engagement with the work?",
+        "options": [
+          "Passive observation only",
+          "High-intensity reflex play",
+          "Multiplayer team battles",
+          "Speedrun leaderboards",
+          "Immersive contemplative interaction"
+        ]
+      },
+      "tr": {
+        "q": "Eserle hedeflenen etkileşim biçimi nedir?",
+        "options": [
+          "Yalnızca pasif izleme",
+          "Yüksek tempolu refleks oyunu",
+          "Çok oyunculu takım savaşı",
+          "Speedrun sıralaması",
+          "Sürükleyici, tefekküre dayalı etkileşim"
+        ]
+      },
+      "de": {
+        "q": "Welche Interaktionsform ist mit dem Werk beabsichtigt?",
+        "options": [
+          "Nur passives Beobachten",
+          "Hochintensives Reflexspiel",
+          "Mehrspieler-Team-Kämpfe",
+          "Speedrun-Bestenlisten",
+          "Immersive, kontemplative Interaktion"
+        ]
+      }
+    }
+  ]
+}

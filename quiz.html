@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-page="quiz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz — Nonnocere</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient">
+      <canvas id="ambient-canvas" class="ambient__canvas" aria-hidden="true"></canvas>
+      <div class="ambient__grid" aria-hidden="true"></div>
+      <div class="ambient__vignette" aria-hidden="true"></div>
+    </div>
+
+    <header class="app-header">
+      <a href="index.html" class="app-logo" aria-label="Nonnocere">
+        <img src="assets/Logo.png" alt="Nonnocere" />
+      </a>
+
+      <nav class="lang-switcher" aria-label="Language">
+        <button class="lang-pill" data-locale="en" type="button">EN</button>
+        <button class="lang-pill" data-locale="tr" type="button">TR</button>
+        <button class="lang-pill" data-locale="de" type="button">DE</button>
+      </nav>
+    </header>
+
+    <main class="stage stage--quiz">
+      <a href="index.html" class="back-button">
+        <svg class="back-button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5" />
+          <path d="m11 19-7-7 7-7" />
+        </svg>
+        <span data-i18n="back">BACK</span>
+      </a>
+
+      <div class="stage__head">
+        <span class="stage__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="3" />
+            <path d="M9.2 9a2.8 2.8 0 1 1 4.4 2.3c-1 .7-1.6 1.2-1.6 2.3" />
+            <circle cx="12" cy="17" r="0.6" fill="currentColor" />
+          </svg>
+        </span>
+        <div class="stage__heading">
+          <span class="stage__index">03</span>
+          <h1 class="stage__title" data-i18n="menuQuiz">Quiz</h1>
+        </div>
+      </div>
+
+      <p class="stage__description" data-i18n="menuQuizHint">Interactive knowledge test</p>
+
+      <!-- Quiz card -->
+      <section class="quiz" id="quiz-card" aria-live="polite">
+        <header class="quiz__meta">
+          <div class="quiz__counter">
+            <span data-i18n="quizQuestion">Question</span>
+            <span class="quiz__counter-numbers">
+              <span id="quiz-current">1</span>
+              <span class="quiz__counter-sep">/</span>
+              <span id="quiz-total">5</span>
+            </span>
+          </div>
+          <div class="quiz__progress" aria-hidden="true">
+            <div class="quiz__progress-fill" id="quiz-progress-fill"></div>
+          </div>
+        </header>
+
+        <h2 class="quiz__question" id="quiz-question">…</h2>
+
+        <ul class="quiz__options" id="quiz-options" role="radiogroup"></ul>
+
+        <footer class="quiz__nav">
+          <button
+            type="button"
+            class="quiz-btn quiz-btn--ghost"
+            id="quiz-prev"
+            disabled
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5" />
+              <path d="m11 19-7-7 7-7" />
+            </svg>
+            <span data-i18n="quizPrev">PREVIOUS</span>
+          </button>
+
+          <button
+            type="button"
+            class="quiz-btn quiz-btn--primary"
+            id="quiz-next"
+            disabled
+          >
+            <span data-i18n="quizNext">NEXT</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" />
+              <path d="m13 5 7 7-7 7" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            class="quiz-btn quiz-btn--primary"
+            id="quiz-submit"
+            hidden
+            disabled
+          >
+            <span data-i18n="quizSubmit">SUBMIT</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+          </button>
+        </footer>
+      </section>
+
+      <!-- Result / Thank-you card -->
+      <section class="quiz-result" id="quiz-result" hidden>
+        <span class="badge" data-i18n="quizResultBadge">COMPLETE</span>
+
+        <div class="quiz-result__icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="28" />
+            <path d="M20 33l8 8 16-18" />
+          </svg>
+        </div>
+
+        <h2 class="quiz-result__title" data-i18n="quizThankYouTitle">Thank you</h2>
+        <p class="quiz-result__message" data-i18n="quizThankYouMessage">
+          Thank you for taking part in the Nonnocere experience.
+        </p>
+
+        <div class="quiz-result__actions">
+          <button type="button" class="quiz-btn quiz-btn--ghost" id="quiz-restart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 3-6.7" />
+              <path d="M3 4v5h5" />
+            </svg>
+            <span data-i18n="quizRestart">RESTART</span>
+          </button>
+          <a href="index.html" class="quiz-btn quiz-btn--primary">
+            <span data-i18n="quizHome">HOME</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" />
+              <path d="m13 5 7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

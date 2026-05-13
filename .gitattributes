@@ -1,7 +1,19 @@
-*.glb !text !filter !merge !diff
-*.mp4 !text !filter !merge !diff
-*.png !text !filter !merge !diff
-*.jpg !text !filter !merge !diff
-*.mov !text !filter !merge !diff
-*.webm !text !filter !merge !diff
-*.gltf !text !filter !merge !diff
+# Binary assets — keep as-is (no LFS, no text munging).
+# GitHub Pages cannot serve Git LFS content, so video and model files
+# must live in regular git storage.
+*.glb        binary
+*.gltf       binary
+*.mp4        binary
+*.mov        binary
+*.webm       binary
+*.png        binary
+*.jpg        binary
+*.jpeg       binary
+
+# Normalize line endings for text
+*.html       text eol=lf
+*.css        text eol=lf
+*.js         text eol=lf
+*.json       text eol=lf
+*.md         text eol=lf
+*.sh         text eol=lf
