@@ -13,7 +13,8 @@
   const COPY = {
     en: {
       tagline: "IMMERSIVE SURGICAL TRAINING",
-      heroTitle: "Forging the missing link<br>in surgery education",
+      heroTitle: "{verb} the missing link<br>in surgery education",
+      heroVerbs: ["Forging", "Building", "Crafting", "Shaping"],
       heroLead:
         "Surgical training needs real patients — but never at their expense. Non Nocere closes that gap with immersive simulation: safe practice, real competence.",
       menuPresentation: "Presentation",
@@ -50,7 +51,8 @@
     },
     tr: {
       tagline: "SÜRÜKLEYİCİ CERRAHİ EĞİTİM",
-      heroTitle: "Cerrah eğitimindeki<br>eksik halkayı tamamlıyoruz",
+      heroTitle: "Cerrah eğitimindeki<br>eksik halkayı {verb}",
+      heroVerbs: ["tamamlıyoruz", "kapatıyoruz", "kuruyoruz", "inşa ediyoruz"],
       heroLead:
         "Cerrahi eğitim gerçek hastayı gerektirir — ama hastanın pahasına değil. Non Nocere bu boşluğu sürükleyici simülasyonla kapatır: güvenli pratik, gerçek yetkinlik.",
       menuPresentation: "Sunum",
@@ -87,7 +89,8 @@
     },
     de: {
       tagline: "IMMERSIVES CHIRURGIE-TRAINING",
-      heroTitle: "Wir schließen die Lücke<br>in der chirurgischen Ausbildung",
+      heroTitle: "Wir {verb} die Lücke<br>in der chirurgischen Ausbildung",
+      heroVerbs: ["schließen", "schmieden", "füllen", "überbrücken"],
       heroLead:
         "Chirurgische Ausbildung braucht echte Patienten — nie aber auf deren Kosten. Non Nocere schließt diese Lücke mit immersiver Simulation: sicheres Üben, echte Kompetenz.",
       menuPresentation: "Präsentation",
@@ -330,7 +333,9 @@
       if (raw == null) return;
 
       const value = UPPERCASE_KEYS.has(key) ? raw.toUpperCase() : raw;
-      if (value.includes("<br")) {
+      if (key === "heroTitle" && value.includes("{verb}")) {
+        applyHeroTitle(el, value, dict.heroVerbs);
+      } else if (value.includes("<br")) {
         el.innerHTML = value;
       } else {
         el.textContent = value;
@@ -348,6 +353,85 @@
         console.error(e);
       }
     });
+  }
+
+  /* -------------------------------------------------- *
+   *  Hero verb rotation
+   *
+   *  Renders the heroTitle with a rotating verb that
+   *  swaps every ~2.8s. Width is locked to the widest
+   *  variant so the rest of the line doesn't shift.
+   * -------------------------------------------------- */
+  let heroVerbTimer = null;
+
+  function applyHeroTitle(el, template, verbs) {
+    if (heroVerbTimer) {
+      clearTimeout(heroVerbTimer);
+      heroVerbTimer = null;
+    }
+    if (!Array.isArray(verbs) || verbs.length === 0) {
+      el.innerHTML = template.replace("{verb}", "");
+      return;
+    }
+    const initial = verbs[0];
+    el.innerHTML = template.replace(
+      "{verb}",
+      `<span class="hero-verb"><span class="hero-verb__track">${escapeHtml(initial)}</span></span>`
+    );
+    const wrap = el.querySelector(".hero-verb");
+    const track = wrap.querySelector(".hero-verb__track");
+    // Lock width to the widest variant so the rest of the title doesn't
+    // jitter horizontally on each swap.
+    wrap.style.minWidth = measureMaxTextWidth(track, verbs) + "px";
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (verbs.length === 1 || reduceMotion) return;
+    let idx = 0;
+    const tick = () => {
+      idx = (idx + 1) % verbs.length;
+      const next = verbs[idx];
+      track.classList.add("hero-verb__track--leaving");
+      heroVerbTimer = setTimeout(() => {
+        track.textContent = next;
+        track.classList.remove("hero-verb__track--leaving");
+        track.classList.add("hero-verb__track--entering");
+        // Force a reflow so the entering class actually animates in.
+        void track.offsetHeight;
+        track.classList.remove("hero-verb__track--entering");
+        heroVerbTimer = setTimeout(tick, 2400);
+      }, 360);
+    };
+    heroVerbTimer = setTimeout(tick, 2400);
+  }
+
+  function measureMaxTextWidth(referenceEl, texts) {
+    const cs = window.getComputedStyle(referenceEl);
+    const probe = document.createElement("span");
+    probe.style.font = cs.font;
+    probe.style.fontWeight = cs.fontWeight;
+    probe.style.letterSpacing = cs.letterSpacing;
+    probe.style.position = "absolute";
+    probe.style.visibility = "hidden";
+    probe.style.whiteSpace = "nowrap";
+    probe.style.left = "-9999px";
+    document.body.appendChild(probe);
+    let max = 0;
+    for (const t of texts) {
+      probe.textContent = t;
+      max = Math.max(max, probe.getBoundingClientRect().width);
+    }
+    document.body.removeChild(probe);
+    return Math.ceil(max);
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
   }
 
   function onLocaleChange(fn) {

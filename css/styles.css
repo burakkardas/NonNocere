@@ -250,6 +250,48 @@ button {
   color: var(--text-primary);
 }
 
+/* Rotating verb inside the hero title. Width is locked by JS so the
+   surrounding line doesn't reflow between swaps; the track slides
+   up + fades on leave, slides up from below on enter. */
+.hero-verb {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  vertical-align: bottom;
+  line-height: inherit;
+  color: var(--primary-glow);
+  text-align: left;
+}
+
+.hero-verb__track {
+  display: inline-block;
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.36s var(--ease), opacity 0.36s var(--ease);
+  will-change: transform, opacity;
+}
+
+.hero-verb__track--leaving {
+  transform: translateY(-0.55em);
+  opacity: 0;
+}
+
+.hero-verb__track--entering {
+  transform: translateY(0.55em);
+  opacity: 0;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-verb__track,
+  .hero-verb__track--leaving,
+  .hero-verb__track--entering {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}
+
 .hero-lead {
   margin: 0 0 56px;
   max-width: 560px;
