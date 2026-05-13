@@ -14,8 +14,9 @@
 
 set -euo pipefail
 
+# Resolve repo root (script lives in scripts/, content/ is at the root).
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR"
+cd "$SCRIPT_DIR/.."
 
 PRESENTATION_EXT="pdf png jpg jpeg webp gif avif svg mp4 webm mov m4v"
 VIDEO_EXT="mp4 webm mov m4v ogg"
@@ -80,20 +81,28 @@ generate_manifest() {
     return
   fi
 
-  # Collect files in stable order.
+  # Collect files in stable order. The ext list is ordered by priority:
+  # when two files share a basename (e.g. clip.mp4 + clip.webm), only the
+  # first one wins — the others are runtime fallback siblings, not separate
+  # gallery items.
   local files=()
+  local seen_bases=""
   while IFS= read -r f; do
+    local base="${f%.*}"
+    case " $seen_bases " in
+      *" $base "*) continue ;;
+    esac
+    seen_bases+=" $base"
     files+=("$f")
   done < <(
     cd "$dir"
     for ext in $exts; do
-      # nullglob via shopt for safety
       shopt -s nullglob nocaseglob
       for f in *."$ext"; do
         [ -f "$f" ] && echo "$f"
       done
       shopt -u nullglob nocaseglob
-    done | sort -u
+    done
   )
 
   # Build JSON

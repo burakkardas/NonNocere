@@ -701,13 +701,13 @@
     // Chromium webviews that block cross-origin ES module imports.
     let THREE, GLTFLoader, RoomEnvironment;
     try {
-      THREE = await import("./vendor/three/three.module.min.js");
+      THREE = await import("../vendor/three/three.module.min.js");
       const gltfMod = await import(
-        "./vendor/three/addons/loaders/GLTFLoader.js"
+        "../vendor/three/addons/loaders/GLTFLoader.js"
       );
       GLTFLoader = gltfMod.GLTFLoader;
       const envMod = await import(
-        "./vendor/three/addons/environments/RoomEnvironment.js"
+        "../vendor/three/addons/environments/RoomEnvironment.js"
       );
       RoomEnvironment = envMod.RoomEnvironment;
     } catch (e) {

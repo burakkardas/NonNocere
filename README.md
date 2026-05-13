@@ -52,23 +52,29 @@ over HTTP.
 
 ```
 .
-├── index.html            # Home / menu
-├── presentation.html     # Slide deck viewer
-├── video.html            # Video player
-├── quiz.html             # Quiz UI
-├── app.js                # All interactive logic (i18n, 3D, quiz, slides)
-├── styles.css            # Global styles
-├── favicon.png
-├── scan-content.sh       # Regenerates content manifests
+├── index.html              # Home / menu
+├── presentation.html       # Slide deck viewer
+├── video.html              # Video player
+├── quiz.html               # Quiz UI
+│
+├── css/styles.css          # Global styles
+├── js/app.js               # All interactive logic (i18n, 3D, quiz, slides)
+├── vendor/three/           # Bundled three.js (no CDN at runtime)
+│
 ├── assets/
+│   ├── favicon.png
 │   ├── Logo.png
 │   └── models/
-│       ├── Model.glb            # Hero 3D model (Git LFS)
-│       └── meta-quest-3/        # Source model + textures
-└── content/
-    ├── quiz.json
-    ├── presentations/           # Slide images + manifest.json
-    └── videos/                  # MP4 + manifest.json
+│       ├── Model.glb       # Hero 3D model
+│       └── meta-quest-3/   # Source model + textures (not served)
+│
+├── content/
+│   ├── quiz.json
+│   ├── presentations/      # Slide images + manifest.json
+│   └── videos/             # MP4 + WebM fallback + manifest.json
+│
+└── scripts/
+    └── scan-content.sh     # Regenerates content manifests
 ```
 
 ### Refreshing content manifests
@@ -77,34 +83,17 @@ When you drop new slides into `content/presentations/` or a new video into
 `content/videos/`, regenerate the manifests:
 
 ```bash
-./scan-content.sh
+./scripts/scan-content.sh
 ```
-
----
-
-## Git LFS
-
-Binary assets (`*.glb`, `*.mp4`, model textures) are stored via **Git LFS** —
-see [`.gitattributes`](.gitattributes) for the tracked patterns.
-
-After cloning, make sure LFS is installed and pull the binary blobs:
-
-```bash
-brew install git-lfs        # or: apt install git-lfs
-git lfs install
-git lfs pull
-```
-
-If `Model.glb` shows up as a tiny text pointer file instead of a real model,
-you forgot the `git lfs pull` step.
 
 ---
 
 ## Tech notes
 
 - Pure HTML / CSS / vanilla JS — no framework, no build step.
-- 3D rendering via [three.js](https://threejs.org/) loaded from a CDN inside
-  `app.js`.
+- 3D rendering via [three.js](https://threejs.org/) (r160), vendored under
+  `vendor/three/` so the page works inside embedded Chromium webviews that
+  block cross-origin ES module imports.
 - Typography: [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk).
 - Tested on recent Chrome, Safari and Firefox.
 
